@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
+import "../index.scss";
+import Navbar from "./Navbar";
+import Home from "./Home";
+import Learn from "./Learn";
+import Footer from "./Footer";
+
+function IsLearn() {
+  const location = useLocation()
+  if (location.pathname !== "/learn")
+    return <Footer />
+  return null
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/video">Video</Route>
+          <Route path="/learn">
+            <Learn />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+        <IsLearn />
+      </Router>
     </div>
   );
 }
